@@ -1,0 +1,29 @@
+.canvas-container{
+    position: relative;
+    width: 1000px;
+    height: 500px;
+  }
+  #fabricSurface {
+    position: absolute;
+    background-color:lightgrey
+  }
+  .buttons-container {
+    position:absolute;
+    right:0%;
+    top:0%
+  }
+  .titulo-container {
+    position:absolute;
+    left:0%;
+    top:0%
+  }
+  .tooltip-ambar {
+    background: #ff6f00;
+  }
+  mat-icon{
+      color: white !important;
+  }
+
+  .mat-menu-item mat-icon{
+    color: #ff6f00 !important;
+}

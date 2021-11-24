@@ -1,0 +1,47 @@
+<div class="d-flex flex-row justify-content-center mt-3 p-3">
+    <div class="canvas-container">
+        <canvas width="1000" height="500" style="border: 1px solid #cccccc;" id="fabricSurface"></canvas>
+        <div class="titulo-container" *ngIf="pisoSeleccionado.nombre">
+            <mat-card>{{pisoSeleccionado.nombre}}</mat-card>
+        </div>
+        <div class="buttons-container d-flex flex-column p-3 h-100">
+            <!--ng if piso seleccionado(actualiza) o figura finalizada(inserta nuevo)-->
+            <button class="m-1" *ngIf="figuraGuardada" (click)="crearNuevoPiso()" matTooltipPosition="left" matTooltip="Nuevo piso" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Nuevo piso">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button class="m-1" *ngIf="figuraFinalizada && figuraComenzada" (click)="guardarPiso()" matTooltipPosition="left" matTooltip="Guardar piso" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Guardar piso">
+                <mat-icon>upload_file</mat-icon>
+            </button>
+            <!--ng if piso seleccionado?-->
+            <button class="m-1" *ngIf="figuraFinalizada && figuraComenzada" (click)="eliminarPiso()" matTooltipPosition="left" matTooltip="Borrar piso" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Borrar piso">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+            <!--ng if edicion piso x habilitado y posicion seleccionada-->
+            <button class="m-1" *ngIf="posicionSeleccionada" (click)="eliminarPosicionSeleccionada()" matTooltipPosition="left" matTooltip="Borrar seleccionado"
+                matTooltipClass="tooltip-ambar" mat-fab color="primary" aria-label="Borrar seleccionado">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <!--ng if edicion piso x habilitada-->
+            <button *ngIf="figuraFinalizada && figuraComenzada" class="m-1" matTooltipPosition="left" (click)="agregarPosicion()" matTooltip="Agregar posicion" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Agregar posicion">
+                <mat-icon>note_add</mat-icon>
+            </button>
+            <!--ng if listado pisos>1-->
+            <div class="d-flex flex-column justify-content-end flex-grow-1">
+                <button class="m-1" *ngIf="listadoPisos.length > 0" matTooltipPosition="left" matTooltip="Listados pisos"
+                    matTooltipClass="tooltip-ambar" [matMenuTriggerFor]="menu" mat-fab color="primary" aria-label="Listado pisos">
+                    <mat-icon>layers</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button *ngFor="let item of listadoPisos; let i = index" (click)="seleccionarPisoList(i)" mat-menu-item>
+                      <mat-icon>image_search</mat-icon>
+                      <span>{{item.nombre}}</span>
+                    </button>
+                  </mat-menu>
+            </div>
+        </div>
+    </div>
+</div>

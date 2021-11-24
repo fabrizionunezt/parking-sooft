@@ -1,0 +1,43 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row">
+        <div class="container-posicion d-flex flex-column">
+            <label for="nombrePosicion">Posicion:</label>
+            <span id="nombrePosicion">{{posicionSeleccionada.nombre}}</span>
+        </div>
+        <div class="d-flex flex-column flex-grow-1">
+            <table class="table-info-pos">
+                <tr>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Patente vehiculo:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.patenteVehiculo}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">DNI:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.dniPropietario}}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Tipo vehiculo:</label>
+                            <span id="nombrePosicion">{{tipoVehiculo}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Color vehiculo:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.colorVehiculo}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <button mat-button color="primary" (click)="cerrarFormulario()">Cerrar</button>
+    </div>
+</div>

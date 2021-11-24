@@ -1,0 +1,35 @@
+<div class="d-flex flex-row justify-content-center mt-3 p-3">
+    <div class="canvas-container">
+        <canvas width="1200" height="500" style="border: 1px solid #cccccc;" id="fabricSurfaceHome"></canvas>
+        <div class="titulo-container" *ngIf="pisoSeleccionado.nombre">
+            <mat-card>{{pisoSeleccionado.nombre}}</mat-card>
+        </div>
+        <div class="buttons-container d-flex flex-column p-3 h-100">
+            <button class="m-1" *ngIf="!posicionSeleccionada.estado && posicionSeleccionadaControl" (click)="realizarCobranza()" matTooltipPosition="left" matTooltip="Realizar cobranza" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Realizar cobranza">
+                <mat-icon>paid</mat-icon>
+            </button>
+            <button class="m-1" *ngIf="!posicionSeleccionada.estado && posicionSeleccionadaControl" (click)="informacionVehiculo()" matTooltipPosition="left" matTooltip="Ver informacion" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Ver informacion">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button class="m-1" *ngIf="posicionSeleccionada.estado && posicionSeleccionadaControl" (click)="abrirCargarNuevoIngreso()" matTooltipPosition="left" matTooltip="Nuevo ingreso" matTooltipClass="tooltip-ambar"
+                mat-fab color="primary" aria-label="Nuevo ingreso">
+                <mat-icon>car_repair</mat-icon>
+            </button>
+            
+            <div class="d-flex flex-column justify-content-end flex-grow-1">
+                <button class="m-1" *ngIf="listadoPisos.length > 0" matTooltipPosition="left" matTooltip="Listados pisos"
+                    matTooltipClass="tooltip-ambar" [matMenuTriggerFor]="menu" mat-fab color="primary" aria-label="Listado pisos">
+                    <mat-icon>layers</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button *ngFor="let item of listadoPisos; let i = index" (click)="seleccionarPisoList(i)" mat-menu-item>
+                      <mat-icon>image_search</mat-icon>
+                      <span>{{item.nombre}}</span>
+                    </button>
+                  </mat-menu>
+            </div>
+        </div>
+    </div>
+</div>

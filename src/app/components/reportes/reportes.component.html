@@ -1,0 +1,87 @@
+<div class="container mt-4">
+    <div class="w-100 d-flex flex-row align-items-center">
+        <div>
+            <h1>{{tituloCicloSel}}</h1>
+        </div>
+        <div class="d-flex flex-row-reverse flex-grow-1">
+            <mat-form-field appearance="fill">
+                <mat-label>Ingresa un rango de fechas</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" [(ngModel)]="fechaDesdeR">
+                    <input matEndDate placeholder="End date" [(ngModel)]="fechaHastaR"  (dateChange)="obtenerRango()">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div *ngIf="dataSource.data.length > 0" class="row">
+        <div class="col-6">
+            <div class="d-flex flex-column">
+                <h1>Ingresos registrados</h1>
+                <div style="display: block;">
+                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="d-flex flex-column">
+                <h1>Vehiculos ingresados</h1>
+                <div style="display: block;">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column mt-4">
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-row">
+                <h1>Registro vehiculos ingresados</h1>
+            </div>
+            <div class="d-flex flex-row-reverse flex-grow-1 align-items-start">
+                <button mat-button color="primary" (click)="descargarCsv()">Descargar tabla</button>
+            </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="patenteVehiculo">
+                <th mat-header-cell *matHeaderCellDef> Patente vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.patenteVehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dniPropietario">
+                <th mat-header-cell *matHeaderCellDef> DNI propietario</th>
+                <td mat-cell *matCellDef="let element"> {{element.dniPropietario}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tipoVehiculo">
+                <th mat-header-cell *matHeaderCellDef> Tipo vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipoVehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="colorVehiculo">
+                <th mat-header-cell *matHeaderCellDef> Color vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.colorVehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaIngreso">
+                <th mat-header-cell *matHeaderCellDef> Fecha ingreso </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaIngreso}} </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaEgreso">
+                <th mat-header-cell *matHeaderCellDef> Fecha egreso </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaEgreso}} </td>
+            </ng-container>
+            <ng-container matColumnDef="montoCobrado">
+                <th mat-header-cell *matHeaderCellDef> Monto cobrado </th>
+                <td mat-cell *matCellDef="let element"> {{element.montoCobrado}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6">No hay datos que coincidan con el ciclo seleccionado</td>
+            </tr>
+        </table>
+    </div>
+</div>

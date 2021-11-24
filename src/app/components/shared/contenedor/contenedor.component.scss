@@ -1,0 +1,127 @@
+mat-nav-list {
+  a {
+    width: 100%;
+    text-align: start;
+  }
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.circle {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-color: #fcdc29;
+  border-radius: 50%;
+  animation: loading 1.5s cubic-bezier(0.8, 0.5, 0.2, 1.4) infinite;
+  transform-origin: bottom center;
+  position: relative;
+}
+@keyframes loading {
+  0% {
+    transform: translateY(0px);
+    background-color: #fcdc29;
+  }
+  50% {
+    transform: translateY(50px);
+    background-color: #ef584a;
+  }
+  100% {
+    transform: translateY(0px);
+    background-color: #fcdc29;
+  }
+}
+.circle-1 {
+  animation-delay: 0.1s;
+}
+.circle-2 {
+  animation-delay: 0.2s;
+}
+.circle-3 {
+  animation-delay: 0.3s;
+}
+.circle-4 {
+  animation-delay: 0.4s;
+}
+.circle-5 {
+  animation-delay: 0.5s;
+}
+.circle-6 {
+  animation-delay: 0.6s;
+}
+.circle-7 {
+  animation-delay: 0.7s;
+}
+.circle-8 {
+  animation-delay: 0.8s;
+}
+.loading-page {
+  height: 100vh;
+  width: 100vw;
+}
+.logo-loading-page {
+  height: 25rem;
+  width: auto;
+}
+
+.mat-button-letras {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: white;
+  &:hover {
+    color: #212529;
+    background-color: whitesmoke;
+  }
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+mat-sidenav {
+  background-color: #ff6f00 !important;
+  color: white;
+  
+  .sidenav-row-undeline {
+    background: transparent;
+    a {
+      background: transparent;
+
+      :hover {
+        background: transparent;
+      }
+    }
+  }
+}
+mat-expansion-panel{
+  background: transparent;
+  color: white !important;
+}
+.header-sidebar{
+  padding: 0;
+  padding-left: 0.2rem;
+}
+.separador-sidenav{
+  height: 2px;
+  background: white;
+  width: 90%;
+  margin: auto;
+}
+.titulo-pagina{
+  color: white;
+  margin-left: 0.6rem;
+}
+//background: #ff6f00;
+#svg {
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border: 1px solid white;
+}
+
+.circle-svg {
+  border-radius: 100%;
+}

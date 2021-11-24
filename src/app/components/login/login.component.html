@@ -1,0 +1,29 @@
+<div class="container full-page d-flex flex-row justify-content-center align-items-start">
+  <mat-card class="d-flex flex-column w-40 h-40">
+    <h2>Iniciar Sesion</h2>
+    <div class="d-flex flex-column">
+      <span class="error" *ngIf="datosIncorrectos">Usuario y/o contraseña invalidos</span>
+      <mat-form-field class="mr-3 input-form-usuario" appearance="outline">
+        <mat-label>DNI</mat-label>
+        <input [(ngModel)]="dniUsuarioIng" [formControl]="dniUsuario" matInput placeholder="Placeholder">
+
+        <mat-hint>Ingresa el DNI del usuario</mat-hint>
+        <mat-error *ngIf="dniUsuario.invalid">El campo es requerido</mat-error>
+      </mat-form-field>
+      <mat-form-field class="mr-3 input-form-usuario" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input [type]="mostrarPassword ? 'password' : 'text'" [(ngModel)]="passwordIng" [formControl]="passUsuario"
+          matInput placeholder="Placeholder">
+        <button mat-icon-button matSuffix (click)="mostrarPassword = !mostrarPassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="mostrarPassword">
+          <mat-icon>{{mostrarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>Ingresa una contraseña</mat-hint>
+        <mat-error *ngIf="passUsuario.invalid">El campo es requerido</mat-error>
+      </mat-form-field>
+      <div class="d-flex flex-column justify-content-end">
+        <button mat-raised-button color="primary" (click)="iniciarSesion()" [disabled]="passUsuario.invalid||dniUsuario.invalid"> Iniciar Sesion </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

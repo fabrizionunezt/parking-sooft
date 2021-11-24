@@ -1,0 +1,120 @@
+<div class="row p-4">
+    <div class="col-6">
+        <mat-form-field class="w-100" appearance="standard">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="descripcion ..." #input>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row pl-4 pr-4">
+
+    <div class="col pr-4">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id_precio">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id_precio}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="nombre_precio">
+                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre_precio}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cantidad_horas">
+                <th mat-header-cell *matHeaderCellDef> Cantidad Horas </th>
+                <td mat-cell *matCellDef="let element"> {{element.cantidad_horas}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="monto_precio">
+                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                <td mat-cell *matCellDef="let element"> {{element.monto_precio}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nombre_tipo_vehiculo">
+                <th mat-header-cell *matHeaderCellDef> Tipo Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipo_vehiculo.nombre_tipo_vehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef> Accion </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="d-flex flex-row justify-content-end">
+                        <button mat-icon-button matTooltip="Editar Precio" (click)="editarPrecio(element)"
+                            matTooltipPosition="above" color="accent" aria-label="Eliminar Precio">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Eliminar Precio" (click)="eliminarPrecio(element)"
+                            matTooltipPosition="above" color="warn" aria-label="Eliminar Precio">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6">No hay datos que coincidan con "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    <div class="col pl-4">
+        <mat-card class="h-30 d-flex flex-column">
+            <div>
+                <mat-form-field class="mr-3 input-form-precio" appearance="outline">
+                    <mat-label>Descripcion</mat-label>
+                    <input [disabled]="editarPrecioControl" [formControl]="descripcionPrecio"
+                        [(ngModel)]="precioForm.nombre_precio" matInput placeholder="Placeholder">
+                    <mat-hint>Ingresa una descripcion del precio</mat-hint>
+                    <mat-error *ngIf="descripcionPrecio.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mr-3 input-form-precio" appearance="outline">
+                    <mat-label>Selecciona un tipo de vehiculo</mat-label>
+                    <mat-select [formControl]="comboSel" [disabled]="editarPrecioControl"
+                        [(ngModel)]="precioForm.tipo_vehiculo.id_tipo_vehiculo">
+                        <mat-option [value]="0" disabled>Selecciona una opcion</mat-option>
+                        <mat-option [value]="1">Moto</mat-option>
+                        <mat-option [value]="2">Auto</mat-option>
+                        <mat-option [value]="3">Camioneta</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="comboSel.hasError('noneSelected')">El campo es requerido</mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="mt-3">
+                <mat-form-field class="mr-3 input-form-precio" appearance="outline">
+                    <mat-label>Precio</mat-label>
+                    <input [formControl]="montoPrecio" appOnlyDigits [decimal]="true"
+                    pattern="^\d+(\.\d{1,2})?$" placeholder="0.00"  [(ngModel)]="precioForm.monto_precio" matInput
+                        placeholder="Placeholder">
+                    <mat-icon matSuffix>paid</mat-icon>
+                    <mat-hint>Ingresa el monto</mat-hint>
+                    <mat-error *ngIf="montoPrecio.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+                <mat-form-field class="mr-3 input-form-precio" appearance="outline">
+                    <mat-label>Cantidad horas</mat-label>
+                    <input [formControl]="horasPrecio" appOnlyDigits type="text"  [(ngModel)]="precioForm.cantidad_horas"
+                        matInput placeholder="Placeholder">
+                    <mat-icon matSuffix>watch_later</mat-icon>
+                    <mat-hint>Ingresa el las horas del plan</mat-hint>
+                    <mat-error *ngIf="horasPrecio.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <button [disabled]="!editarPrecioControl" mat-raised-button (click)="limpiarPrecioFormulario()"
+                    color="accent" class="mr-1">Nuevo precio</button>
+                <button mat-raised-button (click)="guardarPrecio()"
+                    [disabled]="comboSel.invalid || descripcionPrecio.invalid || montoPrecio.invalid || horasPrecio.invalid" color="primary"
+                    class="mr-1">Guardar precio</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

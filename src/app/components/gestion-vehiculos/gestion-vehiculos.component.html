@@ -1,0 +1,118 @@
+<div class="row p-4">
+    <div class="col-6">
+        <mat-form-field class="w-100" appearance="standard">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="10594672..." #input>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row pl-4 pr-4">
+
+    <div class="col pr-4">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id_vehiculo">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id_vehiculo}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="patente_vehiculo">
+                <th mat-header-cell *matHeaderCellDef> Patente Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.patente_vehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef> DNI Propietario </th>
+                <td mat-cell *matCellDef="let element"> {{element.propietario.dni}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Tipo Usuario </th>
+                <td mat-cell *matCellDef="let element"> {{element.propietario.tipo_usuario.nombre}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="color_vehiculo">
+                <th mat-header-cell *matHeaderCellDef> Color Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.color_vehiculo}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nombre_tipo_vehiculo">
+                <th mat-header-cell *matHeaderCellDef> Tipo Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipo_vehiculo.nombre_tipo_vehiculo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef> Accion </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="d-flex flex-row justify-content-end">
+                        <button mat-icon-button matTooltip="Eliminar Vehiculo" (click)="eliminarVehiculo(element)"
+                            matTooltipPosition="above" color="warn" aria-label="Eliminar Vehiculo">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6">No hay datos que coincidan con "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    <div class="col pl-4">
+        <mat-card class="h-30 d-flex flex-column">
+            <div>
+                <mat-form-field class="mr-3 input-form-vehiculo" appearance="outline">
+                    <mat-label>Patente</mat-label>
+                    <input [formControl]="patenteVehiculo" [(ngModel)]="vehiculoForm.patente_vehiculo" matInput
+                        placeholder="Placeholder">
+                    <mat-hint>Ingresa la patente del vehiculo</mat-hint>
+                    <mat-error *ngIf="patenteVehiculo.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mr-3 input-form-vehiculo" appearance="outline">
+                    <mat-label>Selecciona un tipo de vehiculo</mat-label>
+                    <mat-select [formControl]="comboSel" [(ngModel)]="vehiculoForm.tipo_vehiculo.id_tipo_vehiculo">
+                        <mat-option [value]="0" disabled>Selecciona una opcion</mat-option>
+                        <mat-option [value]="1">Moto</mat-option>
+                        <mat-option [value]="2">Auto</mat-option>
+                        <mat-option [value]="3">Camioneta</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="comboSel.hasError('noneSelected')">El campo es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-3">
+                <mat-form-field class="mr-3 input-form-vehiculo" appearance="outline">
+                    <mat-label>Color</mat-label>
+                    <input [formControl]="colorVehiculo" [(ngModel)]="vehiculoForm.color_vehiculo" matInput
+                        placeholder="Placeholder">
+                    <mat-hint>Ingresa el color del vehiculo</mat-hint>
+                    <mat-error *ngIf="colorVehiculo.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+                <mat-form-field class="mr-3 input-form-vehiculo" appearance="outline">
+                    <mat-label>Propietario</mat-label>
+                    <input type="text" placeholder="Selecciona uno" aria-label="Number" matInput
+                        [formControl]="controlUsuario" [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getDisplayFn()"
+                        (optionSelected)="usuarioSeleccionado($event.option.value)">
+                        <mat-option *ngFor="let option of listadoVehiculosOptions | async" [value]="option">
+                            {{option.nombre_usuario + ' - ' + option.dni}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="controlUsuario.invalid">El campo es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <button mat-raised-button (click)="guardarVehiculo()"
+                    [disabled]="colorVehiculo.invalid || comboSel.invalid || patenteVehiculo.invalid || controlUsuario.invalid"
+                    color="primary" class="mr-1">Guardar vehiculo</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

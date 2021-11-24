@@ -1,0 +1,23 @@
+.container-posicion{
+    margin: 1rem;
+    width: 20%;
+    label{
+        font-size: 14px;
+    }
+    span{
+        font-size: 28px;
+    }
+}
+.table-info-pos{
+    .container-info{
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+        label{
+            font-size: 12px;
+        }
+        span{
+            font-size: 16px;
+        }
+    }
+}

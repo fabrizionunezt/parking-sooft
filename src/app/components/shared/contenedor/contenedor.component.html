@@ -1,0 +1,88 @@
+<div *ngIf="showLoading" [@inOutAnimation] class="loading-page">
+    <div class="d-flex flex-row justify-content-center h-100">
+        <div class="d-flex flex-column justify-content-start h-100">
+            <img class="logo-loading-page" src="../assets/img/logoPS.svg" alt="Logo">
+        </div>
+    </div>
+    <div class="wrapper mt-4">
+        <span class="circle circle-1"></span>
+        <span class="circle circle-2"></span>
+        <span class="circle circle-3"></span>
+        <span class="circle circle-4"></span>
+        <span class="circle circle-5"></span>
+        <span class="circle circle-6"></span>
+        <span class="circle circle-7"></span>
+        <span class="circle circle-8"></span>
+    </div>
+</div>
+
+<div *ngIf="!showLoading">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button class="btn-color-white">
+                <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+            </button>
+            <h1 class="titulo-pagina">ParkingSooft</h1>
+            <span class="example-spacer"></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav style="width: 15vw;">
+            <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+                <a mat-button class="w-100 pl-4 pt-1 pb-1 pr-4 mat-button-letras" (click)="sidenav.toggle()"
+                    style="text-align: start;text-decoration: none;" [routerLink]="'/'"> Inicio </a>
+            </div>
+            <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">record_voice_over</mat-icon>
+                <a mat-button class="w-100 pl-4 pt-1 pb-1 pr-4 mat-button-letras" (click)="sidenav.toggle()"
+                    style="text-align: start;text-decoration: none;" [routerLink]="'/PreguntasFrecuentes'"> Preguntas Frecuentes </a>
+            </div>
+            <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">stacked_bar_chart</mat-icon>
+                <a mat-button class="w-100 pl-4 pt-1 pb-1 pr-4 mat-button-letras" (click)="sidenav.toggle()"
+                    style="text-align: start;text-decoration: none;" [routerLink]="'/Reportes'"> Reportes</a>
+            </div>
+            <div class="mt-4 mb-2 separador-sidenav"></div>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header class="header-sidebar">
+                    <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                        <mat-icon aria-hidden="false" class="mr-3" aria-label="Example home icon">space_dashboard</mat-icon>
+                        <span>Gestiones</span>
+                    </div>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">manage_accounts</mat-icon>
+                        <a mat-button [routerLink]="'/GestionUsuarios'" (click)="sidenav.toggle()"> Gestion de
+                            Usuarios</a>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">paid</mat-icon>
+                        <a mat-button [routerLink]="'/GestionPrecios'" (click)="sidenav.toggle()"> Gestion de Precios
+                        </a>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">directions_car</mat-icon>
+                        <a mat-button [routerLink]="'/GestionVehiculos'" (click)="sidenav.toggle()"> Gestion de
+                            Vehiculos </a>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ml-1 sidenav-row-undeline">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">map</mat-icon>
+                        <a mat-button [routerLink]="'/GestionMapa'" (click)="sidenav.toggle()">Gestion de Mapa </a>
+                    </div>
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div style="height: 88vh;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="10"
+                [matRippleColor]="'orange'">
+                <router-outlet></router-outlet>
+
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+<div #page></div>

@@ -1,0 +1,57 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row">
+        <div class="container-posicion d-flex flex-column">
+            <label for="nombrePosicion">Posicion:</label>
+            <span id="nombrePosicion">{{posicionSeleccionada.nombre}}</span>
+        </div>
+        <div class="d-flex flex-column flex-grow-1">
+            <table class="table-info-pos">
+                <tr>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Patente vehiculo:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.patenteVehiculo}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">DNI:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.dniPropietario}}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Tipo vehiculo:</label>
+                            <span id="nombrePosicion">{{tipoVehiculo}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="container-info">
+                            <label for="nombrePosicion">Color vehiculo:</label>
+                            <span id="nombrePosicion">{{posicionSeleccionada.infoPosicion?.colorVehiculo}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex flex-row align-items-end">
+        <div *ngIf="mostrarTiempo" class="container-posicion d-flex flex-column w-50">
+            <label for="tiempoCobranza">Tiempo restante:</label>
+            <countdown-timer  id="tiempoCobranza"></countdown-timer>
+        </div>
+        <mat-form-field class="example-full-width m-1">
+            <mat-label>Monto a cobrar</mat-label>
+            <input required matInput appOnlyDigits [decimal]="true"
+            pattern="^\d+(\.\d{1,2})?$" placeholder="0.00" [(ngModel)]="precioCobrar">
+            <mat-hint *ngIf="esSocio" >Descuento del 20% por socio</mat-hint>
+            <mat-hint *ngIf="esEmpleado" >Descuento del 100% por empleado</mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <button mat-button color="secondary" (click)="cerrarFormulario()">Cerrar</button>
+        <button mat-button color="primary" (click)="realizarCobranza()">Cobrar</button>
+    </div>
+</div>

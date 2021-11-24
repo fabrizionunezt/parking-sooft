@@ -1,0 +1,46 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-column">
+        <mat-form-field class="example-full-width m-1">
+            <mat-label>Patente vehiculo:</mat-label>
+            <input required matInput [formControl]="patenteVehiculo" [(ngModel)]="nuevoIngreso.patenteVehiculo">
+        </mat-form-field>
+        <mat-form-field class="example-full-width m-1">
+            <mat-label>DNI Propietario:</mat-label>
+            <input required matInput [formControl]="dniPropietario" [(ngModel)]="nuevoIngreso.dniPropietario">
+        </mat-form-field>
+
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width m-1">
+                        <mat-label>Color vehiculo:</mat-label>
+                        <input required matInput [formControl]="colorVehiculo" [(ngModel)]="nuevoIngreso.colorVehiculo">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width m-1">
+                        <mat-label>Tipo vehiculo:</mat-label>
+                        <mat-select required [formControl]="tipoVehiculo" (selectionChange)="actualizarPrecios($event)" [(ngModel)]="nuevoIngreso.tipoVehiculo">
+                            <mat-option [value]="0" disabled>Selecciona una opcion</mat-option>
+                            <mat-option [value]="1">Moto</mat-option>
+                            <mat-option [value]="2">Auto</mat-option>
+                            <mat-option [value]="3">Camioneta</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width m-1">
+                        <mat-label>Planes cochera:</mat-label>
+                        <mat-select required [formControl]="planCochera" [(ngModel)]="nuevoIngreso.precioId">
+                            <mat-option *ngFor="let item of listadoPrecios;" [value]="item.id_precio">{{item.nombre_precio+" - $"+item.monto_precio}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <button mat-button (click)="cerrarFormulario()" >Cancelar</button>
+        <button mat-button color="primary" [disabled]="patenteVehiculo.invalid || dniPropietario.invalid || colorVehiculo.invalid || tipoVehiculo.invalid" (click)="guardarNuevoIngreso()" >Aceptar</button>
+    </div>
+</div>

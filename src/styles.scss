@@ -1,1 +1,164 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$parkingSooftFront-primary: mat-palette($mat-amber, 900);
+$parkingSooftFront-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$parkingSooftFront-warn: mat-palette($mat-red);
+
+$parkingSooftFront-theme: mat-light-theme(
+  (
+    color: (
+      primary: $parkingSooftFront-primary,
+      accent: $parkingSooftFront-accent,
+      warn: $parkingSooftFront-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($parkingSooftFront-theme);
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+.mat-tool-bar {
+  height: auto !important;
+}
+
+body{
+  background-color: whitesmoke;
+}
+.full-page{
+  width: 100vw;
+  height: 100vh;
+  margin-top: 10rem;
+}
+.w-40{
+  width: 40%;
+}
+.h-40{
+  height: 40%;
+}
+.error{
+  color: red;
+}
+/*
+.login-wrap {
+  position: relative;
+  margin: 0 auto;
+  background: #ecf0f1;
+  width: 350px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px #333;
+  padding: 15px;
+
+  h2 {
+    text-align: center;
+    font-weight: 200;
+    font-size: 2em;
+    margin-top: 10px;
+    color: #34495e;
+  }
+
+  .form {
+    padding-top: 20px;
+
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 80%;
+      margin-left: 10%;
+      margin-bottom: 25px;
+      height: 40px;
+      border-radius: 5px;
+      outline: 0;
+      -moz-outline-style: none;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      border: 1px solid #bbb;
+      padding: 0 0 0 10px;
+      font-size: 14px;
+      &:focus {
+        border: 1px solid #3498db;
+      }
+    }
+
+    a {
+      text-align: center;
+      font-size: 10px;
+      color: #3498db;
+
+      p {
+        padding-bottom: 10px;
+      }
+    }
+
+    button {
+      background: #ff6f00;
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: 200;
+      cursor: pointer;
+      transition: box-shadow 0.4s ease;
+
+      &:hover {
+        box-shadow: 1px 1px 5px #555;
+      }
+
+      &:active {
+        box-shadow: 1px 1px 7px #222;
+      }
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: -webkit-linear-gradient(
+      left,
+      #27ae60 0%,
+      #27ae60 20%,
+      #8e44ad 20%,
+      #8e44ad 40%,
+      #3498db 40%,
+      #3498db 60%,
+      #e74c3c 60%,
+      #e74c3c 80%,
+      #f1c40f 80%,
+      #f1c40f 100%
+    );
+    background: -moz-linear-gradient(
+      left,
+      #27ae60 0%,
+      #27ae60 20%,
+      #8e44ad 20%,
+      #8e44ad 40%,
+      #3498db 40%,
+      #3498db 60%,
+      #e74c3c 60%,
+      #e74c3c 80%,
+      #f1c40f 80%,
+      #f1c40f 100%
+    );
+    height: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+}*/
+.mat-expansion-panel-body{
+  padding: 0 !important;
+  padding-left: 0.5rem !important;
+}
+
+.btn-color-white{
+  color:white
+}
+.btn-color-black{
+  color:black
+}
